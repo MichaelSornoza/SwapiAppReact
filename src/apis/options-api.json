@@ -1,0 +1,19 @@
+{
+  "options": [
+    {
+      "title": "Personajes de Star Wars",
+      "imgUrl": "http://www.tolucos.com/wp-content/uploads/2018/07/capa-abre.jpg",
+      "category": "people"
+    },
+    {
+      "title": "Planetas de Star Wars",
+      "imgUrl": "https://vignette.wikia.nocookie.net/es.starwars/images/4/46/Mustafar.png/revision/latest?cb=20160725191242",
+      "category": "planets"
+    },
+    {
+      "title": "Naves de Star Wars",
+      "imgUrl": "https://img.elcomercio.pe/files/ec_article_multimedia_gallery/uploads/2017/03/22/58d2186e0d3e1.jpeg",
+      "category": "vehicles"
+    }
+  ]
+}
