@@ -1,9 +1,9 @@
 import React from 'react'
 import './home-layout.scss'
 
-const HomeLayout = props => (
+const HomeLayout = ({children}) => (
   <div className="HomeLayout">
-    {props.children}
+    {children}
   </div>
 )
 

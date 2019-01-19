@@ -15,8 +15,18 @@ const ModalContent = ({data, category, handleAddPage, handleSubtractPage}) => (
             }
           </article>
           <div className="button-div">
-            <a className="button is-dark" onClick={() => handleSubtractPage()}>◀️</a>
-            <a className="button is-dark next" onClick={() => handleAddPage()}>▶️</a>
+            <a
+              className="button is-dark"
+              onClick={() => handleSubtractPage()}
+            >
+              ◀️
+            </a>
+            <a
+              className="button is-dark next"
+              onClick={() => handleAddPage()}
+            >
+              ▶️
+            </a>
           </div>
         </div>
       </div>

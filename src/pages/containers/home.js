@@ -3,6 +3,7 @@ import Axios from 'axios'
 import ParticlesComponent from '../../particles/components/particle'
 import Spinner from '../../spinner/components/spinner'
 import HomeLayout from '../components/home-layout'
+import Footer from '../../layouts/components/footer'
 import Options from '../../options/components/options'
 import ModalContainer from '../../widgets/containers/modal'
 import Modal from '../../widgets/components/modal'
@@ -106,6 +107,7 @@ class HomeContainer extends Component {
               </Modal>
             </ModalContainer>
           }
+          <Footer />
         </HomeLayout>
       </div>
     )
