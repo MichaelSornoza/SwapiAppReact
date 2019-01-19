@@ -1,50 +1,87 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
-import Header from '../../layouts/components/header'
-import HomeLayout from '../components/home-layout'
 import ParticlesComponent from '../../particles/components/particle'
+import Spinner from '../../spinner/components/spinner'
+import HomeLayout from '../components/home-layout'
 import Options from '../../options/components/options'
 import ModalContainer from '../../widgets/containers/modal'
 import Modal from '../../widgets/components/modal'
+import ModalContent from '../../widgets/components/modal-content'
 
 class HomeContainer extends Component {
 
   state = {
     url: 'https://swapi.co/api/!category/!page',
     modalVisible: false,
-    category: 'people',
-    page: 1,
+    selectedCategory: '',
+    modalContentVisible: false,
+    selectedPage: 1,
+    showSpinner: false,
     info: []
   }
 
   handleOpenModal = (category) => {
+
     this.setState({
+      selectedCategory: category,
       modalVisible: true,
+      showSpinner: true
     })
+    this.handleRequest(category)
   }
 
-  handleRequest = () => {
-    let url = this.state.url.replace('!category/!page', `${this.state.category}/?page=${this.state.page}`)
-
+  handleRequest = category => {
+    let page = this.state.selectedPage
+    let url = this.state.url.replace(
+      '!category/!page',
+      `${category}/?page=${page}`
+    )
     Axios.get(url)
       .then(response => {
         this.setState({
-          info: response.data.results
+          info: response.data.results,
+          showSpinner: false,
+          modalContentVisible: true
         })
-        console.log(response.data.results);
       })
   }
 
   handleCloseModal = () => {
     this.setState({
-      modalVisible: false
+      modalVisible: false,
+      info:[],
+      selectedPage: 1,
+      selectedCategory: ''
     })
+  }
+
+  handleAddPage = () => {
+    if(this.state.selectedPage >= 1) {
+      this.setState({
+        selectedPage: this.state.selectedPage++,
+        showSpinner: true,
+        modalContentVisible: false
+      })
+      console.log(this.state.selectedPage)
+      this.handleRequest(this.state.selectedCategory)
+    }
+  }
+
+  handleSubtractPage = () => {
+    if(this.state.selectedPage > 1) {
+      this.setState({
+        selectedPage: this.state.selectedPage--,
+        showSpinner: true,
+        modalContentVisible: false
+      })
+      console.log(this.state.selectedPage)
+      this.handleRequest(this.state.selectedCategory)
+    }
   }
 
   render() {
     return(
       <div>
-        <Header />
         <HomeLayout>
           <ParticlesComponent />
           <Options
@@ -53,13 +90,21 @@ class HomeContainer extends Component {
           />
           {
             this.state.modalVisible &&
-              <ModalContainer>
-                <Modal
-                  handleClick={this.handleCloseModal}
-                  data={this.state.info}
-                >
-                </Modal>
-              </ModalContainer>
+            <ModalContainer>
+              <Modal handleClick={this.handleCloseModal}>
+                {
+                  this.state.showSpinner ?
+                    <Spinner />
+                    :
+                    <ModalContent
+                      data={this.state.info}
+                      category={this.state.category}
+                      handleAddPage={this.handleAddPage}
+                      handleSubtractPage={this.handleSubtractPage}
+                    />
+                }
+              </Modal>
+            </ModalContainer>
           }
         </HomeLayout>
       </div>
