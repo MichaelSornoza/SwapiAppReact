@@ -15,8 +15,8 @@ class HomeContainer extends Component {
     url: 'https://swapi.co/api/!category/!page',
     modalVisible: false,
     selectedCategory: '',
-    modalContentVisible: false,
     selectedPage: 1,
+    modalContentVisible: false,
     showSpinner: false,
     info: []
   }
@@ -56,10 +56,25 @@ class HomeContainer extends Component {
     })
   }
 
+  handleLimitPage = () => {
+    switch (this.state.selectedCategory) {
+      case 'people':
+        return 9
+        break;
+      case 'planets':
+        return 7
+        break;
+      case 'vehicles':
+        return 4
+      default:
+        break;
+    }
+  }
+
   handleAddPage = () => {
-    if(this.state.selectedPage >= 1) {
+    if(this.state.selectedPage >= 1 && this.state.selectedPage <=  this.handleLimitPage()) {
       this.setState({
-        selectedPage: this.state.selectedPage++,
+        selectedPage: this.state.selectedPage+1,
         showSpinner: true,
         modalContentVisible: false
       })
@@ -71,7 +86,7 @@ class HomeContainer extends Component {
   handleSubtractPage = () => {
     if(this.state.selectedPage > 1) {
       this.setState({
-        selectedPage: this.state.selectedPage--,
+        selectedPage: this.state.selectedPage-1,
         showSpinner: true,
         modalContentVisible: false
       })
